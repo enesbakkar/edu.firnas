@@ -1,0 +1,2 @@
+C:\Users\enesb\OneDrive\Belgeler\software_projects\fico_arayuz_cl
+http://localhost:5174/
