@@ -70,7 +70,6 @@ function buildBlockPath(
   }
 
   // Normal blok: üst notch + gövde + alt bump (isteğe bağlı)
-  const totalH = hasBottom ? h + BUMP_H : h;
   const path = [
     `M 0 0`,
     // üst notch
@@ -141,10 +140,10 @@ export function Block({
   }, [instance.id, onUpdateParam]);
 
   // ── Boyut hesapla ──────────────────────────────────────────────────────
-  const BLOCK_W      = 220 - depth * 16;
-  const BLOCK_H      = 44;
-  const hasBottom    = !def.isHat;
-  const totalH       = BLOCK_H + (hasBottom ? BUMP_H : 0);
+  const BLOCK_W   = 220 - depth * 16;
+  const BLOCK_H   = 44;
+  const hasBottom = !def.isHat;
+  const blockTotalH = BLOCK_H + (hasBottom ? BUMP_H : 0);
 
   const path = buildBlockPath(BLOCK_W, BLOCK_H, !!def.isHat, hasBottom);
 
@@ -180,12 +179,12 @@ export function Block({
       <div
         className={isActive ? 'scratch-block active' : 'scratch-block'}
         onContextMenu={handleContextMenu}
-        style={{ position: 'relative', width: BLOCK_W, minHeight: totalH }}
+        style={{ position: 'relative', width: BLOCK_W, minHeight: blockTotalH }}
       >
         {/* SVG gövde */}
         <svg
           width={BLOCK_W}
-          height={def.isHat ? BLOCK_H + BUMP_H * 2 : totalH}
+          height={def.isHat ? BLOCK_H + BUMP_H * 2 : blockTotalH}
           style={{ display: 'block', overflow: 'visible', position: 'absolute', top: 0, left: 0 }}
         >
           <defs>
