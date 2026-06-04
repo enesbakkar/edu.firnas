@@ -1,7 +1,9 @@
 import { Code2, Radio, ListTodo, Battery, Wifi, Camera, Sun, Moon } from 'lucide-react';
 import { FirnasLogo } from './FirnasLogo';
+import { UserBadge } from './LoginPage';
 import { createT } from '../i18n';
 import type { AppTab, Language } from '../types';
+import type { GoogleUser } from '../hooks/useGoogleAuth';
 
 interface Props {
   activeTab: AppTab;
@@ -11,11 +13,13 @@ interface Props {
   connected: boolean;
   theme: 'dark' | 'light';
   onThemeToggle: () => void;
+  user?: GoogleUser | null;
+  onSignOut?: () => void;
 }
 
 const LANGS: Language[] = ['TR', 'EN', 'AR'];
 
-export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, theme, onThemeToggle }: Props) {
+export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, theme, onThemeToggle, user, onSignOut }: Props) {
   const t = createT(lang);
 
   const TABS: { id: AppTab; label: string; icon: React.ReactNode }[] = [
@@ -164,6 +168,17 @@ export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, 
           <Wifi size={15} />
           <Camera size={15} />
         </div>
+
+        {/* Kullanıcı rozeti */}
+        {user && onSignOut && (
+          <>
+            <div style={{
+              width: '1px', height: '24px',
+              background: 'rgba(0,184,212,0.2)',
+            }} />
+            <UserBadge user={user} onSignOut={onSignOut} />
+          </>
+        )}
       </div>
     </header>
   );

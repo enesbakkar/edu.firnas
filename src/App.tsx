@@ -13,8 +13,10 @@ import { TopBar } from './components/TopBar';
 import { Sidebar } from './components/Sidebar';
 import { Workspace } from './components/Workspace';
 import { TelemetryPanel } from './components/TelemetryPanel/TelemetryPanel';
+import { LoginPage } from './components/LoginPage';
 import { useTelemetry } from './hooks/useTelemetry';
 import { useDroneSimulation } from './hooks/useDroneSimulation';
+import { useGoogleAuth } from './hooks/useGoogleAuth';
 import { BLOCK_DEFS } from './components/Blocks/blockDefinitions';
 import { createT } from './i18n';
 import type { BlockInstance, BlockAction, AppTab, Language } from './types';
@@ -101,6 +103,7 @@ function updateParamInChildren(
 // ─── App ────────────────────────────────────────────────────────────────────
 
 export default function App() {
+  const { user, loading, signOut, handleCredential } = useGoogleAuth();
   const [blocks, dispatch] = useReducer(blocksReducer, []);
   const [activeBlockId, setActiveBlockId] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
@@ -196,6 +199,28 @@ export default function App() {
     [],
   );
 
+  // ─── Auth guard ──────────────────────────────────────────────────────────
+  if (loading) {
+    return (
+      <div style={{
+        minHeight: '100vh', background: '#0f2e4a',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+      }}>
+        <div style={{
+          width: 40, height: 40, borderRadius: '50%',
+          border: '3px solid rgba(0,184,212,0.2)',
+          borderTop: '3px solid #00b8d4',
+          animation: 'spin 0.8s linear infinite',
+        }} />
+        <style>{`@keyframes spin{to{transform:rotate(360deg)}}`}</style>
+      </div>
+    );
+  }
+
+  if (!user) {
+    return <LoginPage onCredential={handleCredential} />;
+  }
+
   return (
     <DndContext
       sensors={sensors}
@@ -232,6 +257,8 @@ export default function App() {
           connected={true}
           theme={theme}
           onThemeToggle={toggleTheme}
+          user={user}
+          onSignOut={signOut}
         />
 
         {/* Main content */}
