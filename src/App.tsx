@@ -13,10 +13,12 @@ import { TopBar } from './components/TopBar';
 import { Sidebar } from './components/Sidebar';
 import { Workspace } from './components/Workspace';
 import { TelemetryPanel } from './components/TelemetryPanel/TelemetryPanel';
-import { LoginPage } from './components/LoginPage';
+import { LoginPage, PendingPage, RejectedPage } from './components/LoginPage';
+import { AdminPanel, ADMIN_EMAILS } from './components/AdminPanel';
 import { useTelemetry } from './hooks/useTelemetry';
 import { useDroneSimulation } from './hooks/useDroneSimulation';
 import { useGoogleAuth } from './hooks/useGoogleAuth';
+import { useAccessControl } from './hooks/useAccessControl';
 import { BLOCK_DEFS } from './components/Blocks/blockDefinitions';
 import { createT } from './i18n';
 import type { BlockInstance, BlockAction, AppTab, Language } from './types';
@@ -104,6 +106,8 @@ function updateParamInChildren(
 
 export default function App() {
   const { user, loading, signOut, handleCredential } = useGoogleAuth();
+  const { status: accessStatus } = useAccessControl(user);
+  const [showAdmin, setShowAdmin] = useState(false);
   const [blocks, dispatch] = useReducer(blocksReducer, []);
   const [activeBlockId, setActiveBlockId] = useState<string | null>(null);
   const [isRunning, setIsRunning] = useState(false);
@@ -200,7 +204,7 @@ export default function App() {
   );
 
   // ─── Auth guard ──────────────────────────────────────────────────────────
-  if (loading) {
+  if (loading || (user && accessStatus === 'loading')) {
     return (
       <div style={{
         minHeight: '100vh', background: '#0f2e4a',
@@ -217,9 +221,9 @@ export default function App() {
     );
   }
 
-  if (!user) {
-    return <LoginPage onCredential={handleCredential} />;
-  }
+  if (!user) return <LoginPage onCredential={handleCredential} />;
+  if (accessStatus === 'pending')  return <PendingPage  user={user} onSignOut={signOut} />;
+  if (accessStatus === 'rejected') return <RejectedPage user={user} onSignOut={signOut} />;
 
   return (
     <DndContext
@@ -248,6 +252,9 @@ export default function App() {
             <div className="g-circle g-fifth" />
           </div>
         </div>
+        {/* Admin paneli modal */}
+        {showAdmin && <AdminPanel onClose={() => setShowAdmin(false)} />}
+
         {/* Top bar */}
         <TopBar
           activeTab={activeTab}
@@ -259,6 +266,8 @@ export default function App() {
           onThemeToggle={toggleTheme}
           user={user}
           onSignOut={signOut}
+          isAdmin={ADMIN_EMAILS.includes(user.email)}
+          onAdminOpen={() => setShowAdmin(true)}
         />
 
         {/* Main content */}

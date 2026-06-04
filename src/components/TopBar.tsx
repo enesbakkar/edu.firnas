@@ -15,11 +15,13 @@ interface Props {
   onThemeToggle: () => void;
   user?: GoogleUser | null;
   onSignOut?: () => void;
+  isAdmin?: boolean;
+  onAdminOpen?: () => void;
 }
 
 const LANGS: Language[] = ['TR', 'EN', 'AR'];
 
-export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, theme, onThemeToggle, user, onSignOut }: Props) {
+export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, theme, onThemeToggle, user, onSignOut, isAdmin, onAdminOpen }: Props) {
   const t = createT(lang);
 
   const TABS: { id: AppTab; label: string; icon: React.ReactNode }[] = [
@@ -168,6 +170,35 @@ export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, 
           <Wifi size={15} />
           <Camera size={15} />
         </div>
+
+        {/* Admin butonu */}
+        {isAdmin && onAdminOpen && (
+          <button
+            onClick={onAdminOpen}
+            title="Admin Paneli"
+            style={{
+              background: 'rgba(245,158,11,0.12)',
+              border: '1.5px solid rgba(245,158,11,0.35)',
+              borderRadius: '9px', padding: '6px 12px',
+              color: '#fbbf24', cursor: 'pointer',
+              fontSize: '12px', fontWeight: 700,
+              fontFamily: "'Outfit', sans-serif",
+              display: 'flex', alignItems: 'center', gap: '5px',
+              transition: 'all 0.2s',
+              letterSpacing: '0.03em',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = 'rgba(245,158,11,0.22)';
+              e.currentTarget.style.boxShadow = '0 0 12px rgba(245,158,11,0.25)';
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = 'rgba(245,158,11,0.12)';
+              e.currentTarget.style.boxShadow = 'none';
+            }}
+          >
+            🛡️ Admin
+          </button>
+        )}
 
         {/* Kullanıcı rozeti */}
         {user && onSignOut && (
