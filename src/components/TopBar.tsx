@@ -15,8 +15,6 @@ interface Props {
 
 const LANGS: Language[] = ['TR', 'EN', 'AR'];
 
-const TRANSITION = 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)';
-
 export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, theme, onThemeToggle }: Props) {
   const t = createT(lang);
 
@@ -27,40 +25,25 @@ export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, 
   ];
 
   return (
-    <header
-      className="app-header"
-      style={{
-        height: '64px',
-        display: 'flex',
-        alignItems: 'center',
-        padding: '0 20px',
-        gap: '16px',
-        background: 'rgba(15, 46, 74, 0.85)',
-        backdropFilter: 'blur(20px)',
-        WebkitBackdropFilter: 'blur(20px)',
-        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-        flexShrink: 0,
-        zIndex: 100,
-      }}
-    >
-      {/* Left: Logo + divider + subtitle */}
+    <header className="app-header">
+      {/* Sol: Logo + ayraç + başlık */}
       <div style={{ display: 'flex', alignItems: 'center', gap: '14px', flexShrink: 0 }}>
         <FirnasLogo subtitle="FiCo Studio" />
-        <div style={{ width: '1px', height: '32px', background: 'rgba(0, 184, 212, 0.2)' }} />
-        <div style={{ display: 'flex', flexDirection: 'column' }}>
+        <div style={{
+          width: '1px', height: '32px',
+          background: 'linear-gradient(to bottom, transparent, rgba(0,184,212,0.45), transparent)',
+        }} />
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '2px' }}>
           <span style={{
-            fontSize: '13px',
-            fontWeight: 700,
+            fontSize: '14px', fontWeight: 800,
             fontFamily: "'Outfit', sans-serif",
-            color: 'var(--text-primary)',
-            letterSpacing: '0.03em',
+            color: 'var(--text-1)', letterSpacing: '0.02em',
           }}>
             {t('app.title')}
           </span>
           <span style={{
-            fontSize: '10px',
-            color: 'var(--text-secondary)',
-            letterSpacing: '0.06em',
+            fontSize: '11px', fontWeight: 600,
+            color: 'var(--text-2)', letterSpacing: '0.05em',
             fontFamily: "'Inter', sans-serif",
           }}>
             {t('app.subtitle')}
@@ -70,15 +53,12 @@ export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, 
 
       <div style={{ flex: 1 }} />
 
-      {/* Center: Tab buttons */}
+      {/* Orta: Tab butonları */}
       <div style={{
-        display: 'flex',
-        gap: '3px',
-        background: 'rgba(255, 255, 255, 0.07)',
-        padding: '4px',
-        borderRadius: '12px',
-        border: '1px solid rgba(255, 255, 255, 0.12)',
-        backdropFilter: 'blur(8px)',
+        display: 'flex', gap: '3px',
+        background: 'rgba(0,184,212,0.08)',
+        padding: '4px', borderRadius: '12px',
+        border: '1.5px solid rgba(0,184,212,0.2)',
       }}>
         {TABS.map(tab => (
           <button
@@ -94,63 +74,57 @@ export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, 
 
       <div style={{ flex: 1 }} />
 
-      {/* Right: controls */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', flexShrink: 0 }}>
+      {/* Sağ: Kontroller */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', flexShrink: 0 }}>
 
-        {/* Theme toggle */}
+        {/* Tema toggle */}
         <button
           onClick={onThemeToggle}
           title={theme === 'dark' ? t('theme.light') : t('theme.dark')}
           style={{
-            background: 'rgba(255, 255, 255, 0.07)',
-            border: '1px solid rgba(255, 255, 255, 0.12)',
-            borderRadius: '10px',
-            color: 'var(--text-secondary)',
+            background: 'rgba(0,184,212,0.08)',
+            border: '1.5px solid rgba(0,184,212,0.2)',
+            borderRadius: '9px',
+            color: 'var(--text-2)',
             cursor: 'pointer',
             padding: '6px 9px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            transition: TRANSITION,
+            display: 'flex', alignItems: 'center',
+            transition: 'all 0.2s ease',
           }}
           onMouseEnter={e => {
-            (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,184,212,0.4)';
-            (e.currentTarget as HTMLButtonElement).style.color = '#00b8d4';
+            (e.currentTarget as HTMLButtonElement).style.borderColor = 'var(--accent)';
+            (e.currentTarget as HTMLButtonElement).style.color = 'var(--accent)';
           }}
           onMouseLeave={e => {
-            (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,184,212,0.15)';
-            (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-secondary)';
+            (e.currentTarget as HTMLButtonElement).style.borderColor = 'rgba(0,184,212,0.2)';
+            (e.currentTarget as HTMLButtonElement).style.color = 'var(--text-2)';
           }}
         >
           {theme === 'dark' ? <Sun size={15} /> : <Moon size={15} />}
         </button>
 
-        {/* Language selector */}
+        {/* Dil seçici */}
         <div style={{
-          display: 'flex',
-          gap: '2px',
-          background: 'rgba(255, 255, 255, 0.07)',
-          padding: '3px',
-          borderRadius: '10px',
-          border: '1px solid rgba(255, 255, 255, 0.12)',
+          display: 'flex', gap: '2px',
+          background: 'rgba(0,184,212,0.08)',
+          padding: '3px', borderRadius: '10px',
+          border: '1.5px solid rgba(0,184,212,0.2)',
         }}>
           {LANGS.map(l => (
             <button
               key={l}
               onClick={() => onLangChange(l)}
               style={{
-                padding: '3px 9px',
-                borderRadius: '7px',
-                border: 'none',
+                padding: '4px 10px',
+                borderRadius: '7px', border: 'none',
                 cursor: 'pointer',
-                fontSize: '11px',
-                fontWeight: 700,
+                fontSize: '12px', fontWeight: 800,
                 fontFamily: "'Outfit', sans-serif",
-                letterSpacing: '0.05em',
-                background: lang === l ? '#00b8d4' : 'transparent',
-                color: lang === l ? 'white' : 'var(--text-secondary)',
-                transition: TRANSITION,
-                boxShadow: lang === l ? '0 0 8px rgba(0,184,212,0.35)' : 'none',
+                letterSpacing: '0.04em',
+                background: lang === l ? 'var(--accent)' : 'transparent',
+                color: lang === l ? '#071a2e' : 'var(--text-2)',
+                transition: 'all 0.2s ease',
+                boxShadow: lang === l ? '0 0 10px rgba(0,184,212,0.4)' : 'none',
               }}
             >
               {l}
@@ -158,40 +132,34 @@ export function TopBar({ activeTab, onTabChange, lang, onLangChange, connected, 
           ))}
         </div>
 
-        {/* Connection badge */}
+        {/* Bağlantı durumu */}
         <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '6px',
-          background: connected ? 'rgba(0, 184, 212, 0.1)' : 'rgba(199,93,93,0.1)',
-          border: `1px solid ${connected ? 'rgba(0,184,212,0.25)' : 'rgba(199,93,93,0.25)'}`,
-          borderRadius: '100px',
-          padding: '4px 12px',
+          display: 'flex', alignItems: 'center', gap: '6px',
+          background: connected ? 'rgba(0,184,212,0.1)' : 'rgba(239,68,68,0.1)',
+          border: `1.5px solid ${connected ? 'rgba(0,184,212,0.3)' : 'rgba(239,68,68,0.3)'}`,
+          borderRadius: '100px', padding: '5px 13px',
         }}>
           <span
             className={connected ? 'blink-dot' : ''}
             style={{
-              width: '7px', height: '7px',
-              borderRadius: '50%',
-              background: connected ? '#00b8d4' : '#C75D5D',
-              display: 'inline-block',
-              flexShrink: 0,
-              boxShadow: connected ? '0 0 6px #00b8d4' : 'none',
+              width: '7px', height: '7px', borderRadius: '50%',
+              background: connected ? '#00d4f0' : '#ef4444',
+              display: 'inline-block', flexShrink: 0,
+              boxShadow: connected ? '0 0 8px #00d4f0' : 'none',
             }}
           />
           <span style={{
-            fontSize: '11px',
-            fontWeight: 700,
+            fontSize: '12px', fontWeight: 800,
             fontFamily: "'Outfit', sans-serif",
-            letterSpacing: '0.04em',
-            color: connected ? '#00b8d4' : '#C75D5D',
+            color: connected ? 'var(--text-2)' : '#fca5a5',
+            letterSpacing: '0.03em',
           }}>
             {connected ? t('connected') : t('disconnected')}
           </span>
         </div>
 
-        {/* Icon buttons */}
-        <div style={{ display: 'flex', gap: '10px', color: 'var(--text-muted)', alignItems: 'center' }}>
+        {/* İkon grubu */}
+        <div style={{ display: 'flex', gap: '10px', color: 'var(--text-3)', alignItems: 'center' }}>
           <Battery size={15} />
           <Wifi size={15} />
           <Camera size={15} />

@@ -39,10 +39,11 @@ export function TelemetryPanel({ data, lang }: Props) {
         gap: '10px',
         padding: '12px',
         overflowY: 'auto',
-        background: 'rgba(15, 46, 74, 0.65)',
+        background: 'rgba(18, 40, 64, 0.88)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderLeft: '1px solid rgba(255, 255, 255, 0.1)',
+        borderLeft: '2px solid var(--border)',
+        boxShadow: '-3px 0 16px rgba(0,0,0,0.2)',
       }}
     >
       {/* Camera feed */}
@@ -110,9 +111,9 @@ export function TelemetryPanel({ data, lang }: Props) {
         style={{
           borderRadius: '16px',
           overflow: 'hidden',
-          border: '1px solid rgba(255,255,255,0.12)',
+          border: '1px solid rgba(0, 184, 212, 0.2)',
           flexShrink: 0,
-          boxShadow: '0 4px 20px rgba(15,46,74,0.3)',
+          boxShadow: '0 4px 24px rgba(0,184,212,0.12)',
         }}
       >
         <img
@@ -125,10 +126,10 @@ export function TelemetryPanel({ data, lang }: Props) {
       {/* Status footer */}
       <div
         style={{
-          background: 'rgba(255, 255, 255, 0.06)',
+          background: 'rgba(0, 184, 212, 0.05)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
-          border: '1px solid rgba(255,255,255,0.08)',
+          border: '1px solid rgba(0, 184, 212, 0.15)',
           borderRadius: '16px',
           padding: '10px 14px',
           fontSize: '10px',
@@ -137,9 +138,9 @@ export function TelemetryPanel({ data, lang }: Props) {
           fontFamily: "'Outfit', monospace",
         }}
       >
-        <div style={{ color: '#50C878', fontWeight: 700 }}>● LIDAR AKTİF</div>
-        <div style={{ color: '#50C878', fontWeight: 700 }}>● IMU STABİL</div>
-        <div style={{ color: '#50C878', fontWeight: 700 }}>● GPS SABİT (9)</div>
+        <div style={{ color: '#50C878', fontWeight: 700, textShadow: '0 0 8px rgba(80,200,120,0.5)' }}>● LIDAR AKTİF</div>
+        <div style={{ color: '#50C878', fontWeight: 700, textShadow: '0 0 8px rgba(80,200,120,0.5)' }}>● IMU STABİL</div>
+        <div style={{ color: '#50C878', fontWeight: 700, textShadow: '0 0 8px rgba(80,200,120,0.5)' }}>● GPS SABİT (9)</div>
       </div>
     </div>
   );

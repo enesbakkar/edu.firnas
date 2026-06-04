@@ -213,6 +213,16 @@ export default function App() {
           background: 'var(--bg-deep)',
         }}
       >
+        {/* Firnas gradient blob background */}
+        <div className="grad-anim-container">
+          <div className="gradients-wrapper">
+            <div className="g-circle g-first" />
+            <div className="g-circle g-second" />
+            <div className="g-circle g-third" />
+            <div className="g-circle g-fourth" />
+            <div className="g-circle g-fifth" />
+          </div>
+        </div>
         {/* Top bar */}
         <TopBar
           activeTab={activeTab}
@@ -266,12 +276,12 @@ export default function App() {
                 justifyContent: 'center',
                 color: 'var(--text-secondary)',
                 flexDirection: 'column',
-                gap: '12px',
+                gap: '16px',
               }}
             >
-              <div style={{ fontSize: '48px' }}>📡</div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>{t('tab.telemetry')}</div>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '56px' }}>📡</div>
+              <div style={{ fontSize: '18px', fontWeight: 800, color: '#7ecfea', fontFamily: "'Outfit', sans-serif" }}>{t('tab.telemetry')}</div>
+              <div style={{ fontSize: '14px', color: 'var(--text-muted)', fontFamily: "'Inter', sans-serif", maxWidth: '260px', textAlign: 'center', lineHeight: 1.6 }}>
                 {t('telemetry.data')}
               </div>
             </div>
@@ -286,12 +296,12 @@ export default function App() {
                 justifyContent: 'center',
                 color: 'var(--text-secondary)',
                 flexDirection: 'column',
-                gap: '12px',
+                gap: '16px',
               }}
             >
-              <div style={{ fontSize: '48px' }}>📋</div>
-              <div style={{ fontSize: '16px', fontWeight: 700, color: 'var(--text-primary)' }}>{t('tab.tasks')}</div>
-              <div style={{ fontSize: '13px', color: 'var(--text-muted)' }}>
+              <div style={{ fontSize: '56px' }}>📋</div>
+              <div style={{ fontSize: '18px', fontWeight: 800, color: '#7ecfea', fontFamily: "'Outfit', sans-serif" }}>{t('tab.tasks')}</div>
+              <div style={{ fontSize: '14px', color: 'var(--text-muted)', fontFamily: "'Inter', sans-serif", maxWidth: '260px', textAlign: 'center', lineHeight: 1.6 }}>
                 {t('coming_soon')}
               </div>
             </div>
@@ -305,28 +315,24 @@ export default function App() {
         <footer
           className="app-footer"
           style={{
-            height: '32px',
-            background: 'rgba(15, 46, 74, 0.85)',
+            height: '36px',
+            background: 'rgba(14, 34, 51, 0.95)',
             backdropFilter: 'blur(20px)',
-            borderTop: '1px solid rgba(255, 255, 255, 0.08)',
+            WebkitBackdropFilter: 'blur(20px)',
+            borderTop: '2px solid var(--border)',
             display: 'flex',
             alignItems: 'center',
-            padding: '0 16px',
+            padding: '0 20px',
             flexShrink: 0,
+            gap: '10px',
           }}
         >
-          <span
-            style={{
-              fontSize: '11px',
-              color: 'var(--text-secondary)',
-              flex: 1,
-              textAlign: 'center',
-            }}
-          >
+          <span style={{ width: '6px', height: '6px', borderRadius: '50%', background: 'var(--accent)', boxShadow: '0 0 8px var(--accent)', flexShrink: 0 }} />
+          <span style={{ fontSize: '12px', color: 'var(--text-2)', flex: 1, fontWeight: 600 }}>
             {t('footer.slogan')}
           </span>
-          <span style={{ fontSize: '10px', color: 'var(--text-muted)' }}>
-            FiCo Studio v1.0 · © 2024 Firnas Teknoloji
+          <span style={{ fontSize: '11px', color: 'var(--text-3)', fontFamily: "'Outfit', sans-serif", letterSpacing: '0.06em' }}>
+            FiCo Studio v1.0 · © 2026 Firnas Technologies
           </span>
         </footer>
       </div>

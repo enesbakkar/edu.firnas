@@ -73,10 +73,10 @@ export function Workspace({
             display: 'flex',
             alignItems: 'center',
             padding: '0 16px',
-            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
-            background: 'rgba(255, 255, 255, 0.05)',
-            backdropFilter: 'blur(20px)',
-            WebkitBackdropFilter: 'blur(20px)',
+            borderBottom: '1.5px solid var(--border)',
+            background: 'rgba(18, 40, 64, 0.6)',
+            backdropFilter: 'blur(16px)',
+            WebkitBackdropFilter: 'blur(16px)',
             flexShrink: 0,
             gap: '4px',
           }}
@@ -86,18 +86,18 @@ export function Workspace({
               key={tab}
               onClick={() => setWorkspaceTab(tab)}
               style={{
-                padding: '13px 18px',
+                padding: '14px 20px',
                 border: 'none',
                 background: 'transparent',
                 cursor: 'pointer',
-                fontSize: '12px',
-                fontWeight: 700,
+                fontSize: '13px',
+                fontWeight: 800,
                 fontFamily: "'Outfit', sans-serif",
-                color: workspaceTab === tab ? '#00b8d4' : 'var(--text-secondary)',
-                borderBottom: `2px solid ${workspaceTab === tab ? '#00b8d4' : 'transparent'}`,
+                color: workspaceTab === tab ? '#00deff' : 'var(--text-secondary)',
+                borderBottom: `3px solid ${workspaceTab === tab ? '#00deff' : 'transparent'}`,
                 letterSpacing: '0.06em',
                 transition: 'all 0.3s cubic-bezier(0.16, 1, 0.3, 1)',
-                textShadow: workspaceTab === tab ? '0 0 12px rgba(0,184,212,0.5)' : 'none',
+                textShadow: workspaceTab === tab ? '0 0 16px rgba(0,222,255,0.6)' : 'none',
               }}
             >
               {tab === 'blocks' ? t('tab.blocks') : t('tab.code_view')}
@@ -107,14 +107,14 @@ export function Workspace({
           <div style={{ flex: 1 }} />
 
           <span style={{
-            fontSize: '10px',
-            color: 'var(--firnas-teal)',
+            fontSize: '12px',
+            color: 'var(--accent-bright)',
             fontFamily: "'Outfit', sans-serif",
-            fontWeight: 700,
+            fontWeight: 800,
             letterSpacing: '0.08em',
-            background: 'rgba(0,184,212,0.08)',
-            border: '1px solid rgba(0,184,212,0.15)',
-            padding: '2px 10px',
+            background: 'rgba(0,184,212,0.12)',
+            border: '1.5px solid rgba(0,184,212,0.25)',
+            padding: '3px 12px',
             borderRadius: '100px',
           }}>
             {blocks.length} {t('word.block')}
@@ -147,27 +147,27 @@ export function Workspace({
                   flexDirection: 'column',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  gap: '12px',
+                  gap: '16px',
                   color: 'var(--border)',
                   pointerEvents: 'none',
                 }}
               >
                 <div style={{
-                  width: '120px', height: '120px',
-                  border: '2px dashed rgba(0,184,212,0.2)',
-                  borderRadius: '24px',
+                  width: '140px', height: '140px',
+                  border: '2.5px dashed rgba(0,184,212,0.28)',
+                  borderRadius: '32px',
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  fontSize: '40px',
-                  background: 'rgba(0,184,212,0.03)',
+                  fontSize: '52px',
+                  background: 'rgba(0,184,212,0.05)',
                 }}>
                   🧩
                 </div>
                 <div style={{
-                  fontSize: '14px',
-                  color: 'var(--text-secondary)',
-                  fontWeight: 700,
+                  fontSize: '16px',
+                  color: '#7ecfea',
+                  fontWeight: 800,
                   fontFamily: "'Outfit', sans-serif",
                   textAlign: 'center',
                   letterSpacing: '0.02em',
@@ -175,10 +175,12 @@ export function Workspace({
                   {t('workspace.empty')}
                 </div>
                 <div style={{
-                  fontSize: '12px',
+                  fontSize: '13px',
                   color: 'var(--text-muted)',
                   fontFamily: "'Inter', sans-serif",
                   textAlign: 'center',
+                  maxWidth: '220px',
+                  lineHeight: 1.5,
                 }}>
                   {t('workspace.hint')}
                 </div>
